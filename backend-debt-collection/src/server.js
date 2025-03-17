@@ -1,9 +1,7 @@
 const express = require('express');
-const mysql = require('mysql');
 const cors = require('cors');
 const path = require('path');
-
-require('dotenv').config();
+const db = require('./database');
 
 const app = express();
 
@@ -13,23 +11,9 @@ app.use(express.json());
 
 const port = 5000;
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,  
-  database: process.env.DB_NAME
-})
-
-db.connect(function(err) {
-  if (err){
-    throw err;
-  }else{
-    console.log("Connected!");
-  }
-});
-
-app.get("/parents", (req, res) => {
-  db.query("SELECT * FROM parent", (err, result) => {
+app.get("/parents", async (req, res) => {
+  const connection = await db.getConnection();
+  connection.query("SELECT * FROM parent", (err, result) => {
     if (err) {
       console.error("Error fetching parents:", err);
       return res.status(500).json({ error: err.message });
