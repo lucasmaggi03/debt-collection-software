@@ -1,33 +1,21 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Routes, Route } from 'react-router-dom';
+import { NavBar } from './components/NavBar/NavBar';
+import { HomePage } from './components/HomePage/HomePage';
+import { Parents } from './components/Parents/Parents';
+import './App.css';
 
 function App() {
-  const [list, setList] = useState([])
-  const getParents = async () => {
-    await axios.get('http://localhost:5000/parents')
-    .then((response) => {
-      console.log(response.data)
-      setList(response.data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
-
-  useEffect(() => {
-    getParents()
-  })
-
   return (
-    <>
-      <ul>
-        {list.map((item, index) => {
-          return <li key={index}>{item.name}</li>
-        }
-        )}
-      </ul>
-    </>
-  )
+    <div className="app-container">
+      <NavBar />
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/parents" element={<Parents />} />
+        </Routes>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;

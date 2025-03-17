@@ -1,0 +1,41 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    max-width: 500px;
+    height: 150px;
+    background-color: var(--borders);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.box h2 {
+    margin-bottom: 10px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    grid-template-rows: auto auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.chart-container {
+    width: 100%;
+    height: 400px;
+    background-color: var(--borders);
+    border-radius: 5px;
+    padding: 20px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.container > .chart-container:nth-child(3) {
+    grid-column: span 2; 
+}

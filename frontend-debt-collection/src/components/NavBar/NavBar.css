@@ -1,0 +1,29 @@
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid var(--borders);
+    width: 200px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    align-items: start;
+    padding-left: 2rem;
+    justify-content: center;
+}
+
+
+.nlink {
+    text-decoration: none;
+    color: var(--h1-color);
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nlink:hover {
+    color: var(--first-accent);
+}
