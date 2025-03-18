@@ -8,15 +8,6 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME
 })
 
-db.connect(function(err) {
-  if (err){
-    throw err;
-  }else{
-    console.log("Connected!");
-  }
-});
-
-
 getConnection = async () => await db;
 module.exports = {
     getConnection

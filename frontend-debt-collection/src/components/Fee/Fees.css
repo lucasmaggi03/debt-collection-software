@@ -1,54 +1,61 @@
-.container-fee{
+.container-fee {
     background-color: var(--borders);
     padding: 20px;
-    border-radius: 5px;
-}
-
-.fee-header{
-    display: flex;
-    justify-content: space-between;
-}
-
-.add-fee{
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: var(--second-accent);
-}
-
-.fee-item{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.container-fee-historical{
-    background-color: var(--borders);
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.fee-actions {
-    display: flex;
-    gap: 5px;
+    border-radius: 8px;
   }
 
-.fee-actions button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: var(--second-accent);
+  .container-fee-historical {
+    background-color: var(--borders);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  .list-fee {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .fee-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--borders);
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .fee-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    align-items: center;
+  }
+  
+  .fee-actions {
+    display: flex;
     gap: 5px;
   }
   
-.fee-actions button:hover {
+  .fee-actions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--second-accent);
+  }
+  
+  .fee-actions button:hover {
     opacity: 0.8;
-}
-
-.fee-header button{
+  }
+  
+  .add-fee {
     background-color: var(--second-accent);
     padding: 10px;
     border-radius: 10px;
@@ -57,5 +64,16 @@
     justify-items: center;
     align-items: center;
     gap: 10px;
-    margin: 25px;
-}
+    text-decoration: none;
+    color: var(--h1-color);
+  }
+  
+  .filter-list {
+    display: flex;
+    gap: 20px;
+    padding-left: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  

@@ -1,0 +1,40 @@
+.container-post{
+    background-color: var(--borders);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-form{
+    display: flex;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.form-group label{
+    color: var(--h1-color);
+}
+
+.form-group input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--borders);
+    background-color: var(--first-accent);
+    color: white;
+    width: ;
+}
+
+.form-group button{
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: var(--second-accent);
+}

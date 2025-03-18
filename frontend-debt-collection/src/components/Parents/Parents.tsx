@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Parents.css';
+import { Link } from 'react-router-dom';
 
 import { MdModeEditOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
@@ -32,7 +33,7 @@ export function Parents() {
       <div className="container-parent">
         <div className='parent-header'>
           <h1>Lista de padres e hijos</h1>
-          <button className='add-parent'><IoIosAddCircle size='1rem'/><span>Agregar padre</span></button>
+          <Link to='/postparents' className='add-parent'><IoIosAddCircle size='1rem'/><span>Agregar padre</span></Link>
         </div>
         <div className='filter-list'>
           <div className="search-name">
@@ -59,7 +60,7 @@ export function Parents() {
             <h2>Acciones</h2>
           </div>
           {list.map((item) => (
-            <div key={item.id} className="parent-item">
+            <div key={item.idparent} className="parent-item">
               <p>{item.name}</p>
               <p>{item.lastname}</p>
               <p>{item.address}</p>

@@ -52,7 +52,7 @@
     justify-content: space-between;
   }
 
-  .parent-header button{
+  .add-parent{
     background-color: var(--second-accent);
     padding: 10px;
     border-radius: 10px;
@@ -61,6 +61,8 @@
     justify-items: center;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
+    color: var(--h1-color);
 }
 
 .filter-list{
