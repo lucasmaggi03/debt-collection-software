@@ -34,6 +34,20 @@ export function Parents() {
           <h1>Lista de padres e hijos</h1>
           <button className='add-parent'><IoIosAddCircle size='1rem'/><span>Agregar padre</span></button>
         </div>
+        <div className='filter-list'>
+          <div className="search-name">
+            <p>Buscar por nombre:</p>
+            <input type="text" name="search" id="search" placeholder="Buscar por nombre" />
+          </div>
+          <div className='select-list'>
+            <p>Buscar por estado de cuota:</p>
+            <select name="filter" id="filter">
+              <option value="name">Pagadas</option>
+              <option value="lastname">Pendientes</option>
+              <option value="address">Vencidas</option>
+            </select>
+            </div>
+        </div>
         <div className="list-parent">
           <div className="parent-header">
             <h2>Nombre</h2>

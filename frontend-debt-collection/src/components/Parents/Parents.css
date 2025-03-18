@@ -12,7 +12,7 @@
   
   .parent-header, .parent-item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr auto; /* 7 columnas */
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr auto;
     gap: 10px;
     padding: 10px;
     background-color: var(--bg-color);
@@ -61,4 +61,33 @@
     justify-items: center;
     align-items: center;
     gap: 10px;
+}
+
+.filter-list{
+    display: flex;
+    gap: 20px;
+    padding-left: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-list select{
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--first-accent);
+    color: white;
+}
+
+.search-name, .select-list{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-name input{
+    background-color: var(--first-accent);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
 }
