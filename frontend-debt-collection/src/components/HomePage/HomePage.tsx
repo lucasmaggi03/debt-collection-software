@@ -74,8 +74,8 @@ export function HomePage() {
     datasets: [
         {
             label: 'Distribución de Cuotas',
-            data: [40, 30, 20],  // Cambia estos datos según lo necesites
-            backgroundColor: ['#bb86fc', '#03dac6', '#ff4081'],  // Colores personalizados
+            data: [40, 30, 20], 
+            backgroundColor: ['#bb86fc', '#03dac6', '#ff4081'], 
             borderRadius: 5,
         },
     ],
@@ -105,27 +105,25 @@ export function HomePage() {
       },
     },
     animation: {
-      animateRotate: true,  // Efecto de rotación en la animación
+      animateRotate: true,
     }
   };
 
-  // Datos para el gráfico de área
   const areaData = {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [
         {
             label: 'Monto Recaudado',
-            data: [500, 1000, 1200, 1500, 800, 600, 1300, 950, 1100, 2000, 2500, 3000], // Reemplaza estos datos con tus valores reales
-            fill: true,  // Esto habilita el área rellena
-            backgroundColor: 'rgba(187, 134, 252, 0.4)', // Color del área
-            borderColor: '#bb86fc', // Color del borde de la línea
+            data: [500, 1000, 1200, 1500, 800, 600, 1300, 950, 1100, 2000, 2500, 3000], 
+            fill: true, 
+            backgroundColor: 'rgba(187, 134, 252, 0.4)',
+            borderColor: '#bb86fc', 
             borderWidth: 2,
-            tension: 0.4,  // Para darle una curva suave a la línea
+            tension: 0.4, 
         },
     ],
   };
 
-  // Opciones para el gráfico de área
   const areaOptions = {
     responsive: true,
     plugins: {
