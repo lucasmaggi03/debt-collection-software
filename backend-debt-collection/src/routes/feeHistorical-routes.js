@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/feeMax", async (req, res) => {
   const connection = await db.getConnection();
-  connection.query("SELECT DATE_FORMAT(datefee, '%d-%m-%Y') AS formatted_date, amount FROM historicalfee WHERE datefee = (SELECT MAX(DATE(datefee)) FROM historicalfee);", (err, result) => {
+  connection.query("SELECT DATE_FORMAT(datefee, '%d-%m-%Y') AS formatted_date, fee_on_time  FROM fee_schedule  WHERE datefee = ( SELECT datefee  FROM fee_schedule  ORDER BY datefee DESC LIMIT 1);", (err, result) => {
     if (err) {
       console.error("Error fetching child:", err);
       return res.status(500).json({ error: err.message });
@@ -14,14 +14,26 @@ router.get("/feeMax", async (req, res) => {
   });
 });
 
-router.get("/feesHistorical", async (req, res) => {
+router.get("/fees", async (req, res) => {
   const connection = await db.getConnection();
-  connection.query("SELECT DATE_FORMAT(datefee, '%d-%m-%Y') AS formatted_date, amount FROM historicalfee ORDER BY datefee DESC;", (err, result) => {
+  connection.query("SELECT DATE_FORMAT(datefee, '%d-%m-%Y') AS formatted_date, fee_on_time FROM fee_schedule ORDER BY datefee DESC;", (err, result) => {
     if (err) {
       console.error("Error fetching child:", err);
       return res.status(500).json({ error: err.message });
     } 
     return res.status(200).json(result);
+  });
+});
+
+router.post("/fees/:id", async (req, res) => {
+  const {fee_on_time, fee_late} = req.body;
+  const connection = await db.getConnection();
+  connection.query("INSERT INTO fee_schedule (fee_on_time, fee_late) VALUES (?, ?)", [fee_on_time, fee_late], (err, result) => {
+    if (err) {
+      console.error("Error inserting fee:", err);
+      return res.status(500).json({ error: err.message });
+    } 
+    return res.status(200).json({ message: "fee added successfully" });
   });
 });
 

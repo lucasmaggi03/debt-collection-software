@@ -88,19 +88,18 @@ export function Parents() {
         </div>
         <div className="list-parent">
           <div className="parent-header">
+            <h2>Id</h2>
             <h2>Nombre</h2>
             <h2>Apellido</h2>
-            <h2>Dirección</h2>
             <h2>Email</h2>
-            <h2>Teléfono</h2>
-            <h2>Cant. cargo</h2>
+            <h2>Celular</h2>
             <h2>Acciones</h2>
           </div>
           {filteredList.map((item) => (
             <div key={item.idparent} className="parent-item">
+              <p>{item.idtutor}</p>
               <p>{item.name}</p>
               <p>{item.lastname}</p>
-              <p>{item.address}</p>
               <p>{item.email}</p>
               <p>{item.phone}</p>
               <div className="parent-actions">

@@ -4,7 +4,7 @@ const path = require('path');
 const db = require('./database');
 
 const tutorsRoutes = require('./routes/tutors-routes.js');
-const childRoutes = require('./routes/child-routes.js');
+const studentRoutes = require('./routes/students-routes.js');
 const feesRoutes = require('./routes/fee-routes.js');
 const feesHistoricalRoutes = require('./routes/feeHistorical-routes.js');
 
@@ -18,7 +18,7 @@ const port = 5000;
 
 // Routes
 app.use('/', tutorsRoutes);
-app.use('/', childRoutes);
+app.use('/', studentRoutes);
 app.use('/', feesRoutes);
 app.use('/', feesHistoricalRoutes);
 

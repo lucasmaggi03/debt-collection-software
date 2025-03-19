@@ -3,7 +3,7 @@ const db = require("../database");
 const express = require('express');
 const router = express.Router();
 
-router.get("/fees", async (req, res) => {
+router.get("/payment", async (req, res) => {
   const connection = await db.getConnection();
   connection.query("SELECT idfee, DATE_FORMAT(datefee, '%Y-%m-%d') AS datefee, DATE_FORMAT(datepay, '%Y-%m-%d') AS datepay, amount, state, created_at, idparent FROM fee;", (err, result) => {
     if (err) {
@@ -14,7 +14,7 @@ router.get("/fees", async (req, res) => {
   });
 });
 
-router.post("/fees", async (req, res) => {
+router.post("/payments", async (req, res) => {
   const { name, lastname, birth, status, idparentc } = req.body;
   const connection = await db.getConnection();
   connection.query("INSERT INTO fee (name, lastname, birth, status, idparentc) VALUES (?, ?, ?, ?, ? )", [name, lastname, birth, status, idparentc], (err, result) => {

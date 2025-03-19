@@ -27,8 +27,8 @@
 }
 
 .parent-header h2, .parent-item p {
-  flex: 1; /* Da el mismo espacio a cada uno */
-  text-align: center; /* Centra el contenido dentro de cada celda */
+  flex: 1;
+  text-align: center;
 }
 
 .parent-item {

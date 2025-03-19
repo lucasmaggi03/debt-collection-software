@@ -40,7 +40,7 @@
   gap: 5px;
 }
 
-.parent-actions button {
+.parent-actions .act-btn {
   padding: 5px 10px;
   border: none;
   border-radius: 4px;

@@ -26,7 +26,7 @@ export function Student() {
 
   const getStudent = async () => {
     await axios
-      .get('http://localhost:5000/child')
+      .get('http://localhost:5000/students')
       .then((response) => {
         setList(response.data);
       })
@@ -39,14 +39,14 @@ export function Student() {
     getStudent();
   }, []);
 
-  function DeletParent(id: number) {
+  function DeletStudent(id: number) {
     axios
-      .delete(`http://localhost:5000/child/${id}`)
+      .delete(`http://localhost:5000/students/${id}`)
       .then(() => {
-        setList((prevList) => prevList.filter((parent) => parent.idparent !== id));
+        setList((prevList) => prevList.filter((student) => student.idstudent !== id));
       })
       .catch((error) => {
-        console.error("Error deleting parent:", error);
+        console.error("Error deleting student:", error);
       });
   }
 
@@ -89,31 +89,28 @@ export function Student() {
         </div>
         <div className="list-parent">
           <div className="parent-header">
+            <h2>Id</h2>
             <h2>Nombre</h2>
             <h2>Apellido</h2>
-            <h2>Email</h2>
+            <h2>Estado</h2>
             <h2>Tutor</h2>
             <h2>Acciones</h2>
           </div>
           {filteredList.map((item) => (
-            <div key={item.idparent} className="parent-item">
+            <div key={item.idstudent} className="parent-item">
+              <p>{item.idstudent}</p>
               <p>{item.name}</p>
               <p>{item.lastname}</p>
-              <p>{item.address}</p>
-              <p>{item.email}</p>
-              <p>{item.celnumb}</p>
-              <p>{item.childrenCount || '2'}</p>
+              <p>{item.status ? "Entregó CF" : "Adeuda CF"}</p>
+              <p>{item.idtutor ? idtutor : "No tiene tutor"}</p>
               <div className="parent-actions">
-                <button>
-                  <FaChild />
-                </button>
-                <button>
+                <button className='act-btn'>
                   <MdModeEditOutline />
                 </button>
-                <button>
+                <Link to={`/feecalculate/${item.idstudent}`} className='act-btn'> 
                   <IoReceipt />
-                </button>
-                <button onClick={() => DeletParent(item.idparent)}>
+                </Link>
+                <button className='act-btn' onClick={() => DeletStudent(item.idstudent)}>
                   <MdDelete />
                 </button>
               </div>
