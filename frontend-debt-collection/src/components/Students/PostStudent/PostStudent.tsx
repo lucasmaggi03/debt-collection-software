@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import "./PostParent.css";
+import "./PostStudent.css";
 
-export function PostParent() {
+export function PostStudent() {
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState("");
     const [address, setAddress] = useState("");
@@ -14,7 +14,7 @@ export function PostParent() {
         event.preventDefault();
 
         try {
-            await axios.post("http://localhost:5000/parents/:id", {
+            await axios.post("http://localhost:5000/students/:id", {
                 name,
                 lastname,
                 address,
@@ -36,7 +36,7 @@ export function PostParent() {
     return (
         <div className="container-post">
             <div className="post-header">
-                <h1>Agregar tutor</h1>
+                <h1>Agregar Alumno</h1>
             </div>
             <div className="post-form">
                 <form onSubmit={handleSubmit}>
@@ -107,7 +107,7 @@ export function PostParent() {
                         />
                     </div>
                     <div className="form-group">
-                        <button type="submit">Agregar padre</button>
+                        <button type="submit">Agregar alumno</button>
                     </div>
                 </form>
             </div>

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/fees", async (req, res) => {
   const connection = await db.getConnection();
-  connection.query("SELECT * FROM fee", (err, result) => {
+  connection.query("SELECT idfee, DATE_FORMAT(datefee, '%Y-%m-%d') AS datefee, DATE_FORMAT(datepay, '%Y-%m-%d') AS datepay, amount, state, created_at, idparent FROM fee;", (err, result) => {
     if (err) {
       console.error("Error fetching child:", err);
       return res.status(500).json({ error: err.message });

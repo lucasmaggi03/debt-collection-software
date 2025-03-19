@@ -14,6 +14,18 @@ router.get("/child", async (req, res) => {
   });
 });
 
+router.post("/child/:id", async (req, res) => {
+  const { name, lastname, address, celnumb, email, dni } = req.body;
+  const connection = await db.getConnection();
+  connection.query("INSERT INTO parent (name, lastname, address, celnumb, email, dni) VALUES (?, ?, ?, ?, ? , ?)", [name, lastname, address, celnumb, email, dni], (err, result) => {
+    if (err) {
+      console.error("Error inserting parent:", err);
+      return res.status(500).json({ error: err.message });
+    } 
+    return res.status(200).json({ message: "Parent added successfully" });
+  });
+});
+
 router.post("/child", async (req, res) => {
   const { name, lastname, birth, status, idparentc } = req.body;
   const connection = await db.getConnection();

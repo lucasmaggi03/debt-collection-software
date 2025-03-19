@@ -15,10 +15,10 @@ export function NavBar() {
           <Link to="/fees" className="nlink">Cuotas</Link>
         </li>
         <li className="nav-li">
-          <Link to="/parents" className="nlink">Padres e hijos</Link>
+          <Link to="/parents" className="nlink">Tutores</Link>
         </li>
         <li className="nav-li">
-          <Link to="/list-fee" className="nlink">Historical Fee</Link>
+          <Link to="/students" className="nlink">Alumnos</Link>
         </li>
       </ul>
     </nav>

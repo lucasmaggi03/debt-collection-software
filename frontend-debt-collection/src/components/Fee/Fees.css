@@ -28,6 +28,11 @@
     font-weight: bold;
   }
   
+.fee-h{
+    display: flex;
+    justify-content: space-between;
+}
+
   .fee-item {
     display: grid;
     grid-template-columns: 1fr 1fr auto;

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/feeMax", async (req, res) => {
   const connection = await db.getConnection();
-  connection.query("SELECT * FROM historicalfee WHERE datefee = (SELECT MAX(datefee) from historicalfee)", (err, result) => {
+  connection.query("SELECT DATE_FORMAT(datefee, '%d-%m-%Y') AS formatted_date, amount FROM historicalfee WHERE datefee = (SELECT MAX(DATE(datefee)) FROM historicalfee);", (err, result) => {
     if (err) {
       console.error("Error fetching child:", err);
       return res.status(500).json({ error: err.message });
@@ -16,7 +16,7 @@ router.get("/feeMax", async (req, res) => {
 
 router.get("/feesHistorical", async (req, res) => {
   const connection = await db.getConnection();
-  connection.query("SELECT * FROM historicalfee ORDER BY datefee DESC;", (err, result) => {
+  connection.query("SELECT DATE_FORMAT(datefee, '%d-%m-%Y') AS formatted_date, amount FROM historicalfee ORDER BY datefee DESC;", (err, result) => {
     if (err) {
       console.error("Error fetching child:", err);
       return res.status(500).json({ error: err.message });

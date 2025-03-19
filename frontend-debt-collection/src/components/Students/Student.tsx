@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Parents.css';
+import './Student.css';
 import { Link } from 'react-router-dom';
 
 import { MdModeEditOutline } from "react-icons/md";
@@ -9,7 +9,7 @@ import { IoReceipt } from "react-icons/io5";
 import { FaChild } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
 
-export function Parents() {
+export function Student() {
   interface Parent {
     idparent: number;
     name: string;
@@ -24,9 +24,9 @@ export function Parents() {
   const [list, setList] = useState<Parent[]>([]);
   const [search, setSearch] = useState<string>(''); // Estado para almacenar el valor de búsqueda
 
-  const getParents = async () => {
+  const getStudent = async () => {
     await axios
-      .get('http://localhost:5000/parents')
+      .get('http://localhost:5000/child')
       .then((response) => {
         setList(response.data);
       })
@@ -36,12 +36,12 @@ export function Parents() {
   };
 
   useEffect(() => {
-    getParents();
+    getStudent();
   }, []);
 
   function DeletParent(id: number) {
     axios
-      .delete(`http://localhost:5000/parents/${id}`)
+      .delete(`http://localhost:5000/child/${id}`)
       .then(() => {
         setList((prevList) => prevList.filter((parent) => parent.idparent !== id));
       })
@@ -60,10 +60,10 @@ export function Parents() {
     <>
       <div className="container-parent">
         <div className="parent-header">
-          <h1>Lista de tutores</h1>
-          <Link to="/postparents" className="add-parent">
+          <h1>Lista de alumnos</h1>
+          <Link to="/poststudents" className="add-parent">
             <IoIosAddCircle size="1rem" />
-            <span>Agregar tutor</span>
+            <span>Agregar alumno</span>
           </Link>
         </div>
         <div className="filter-list">
@@ -91,10 +91,8 @@ export function Parents() {
           <div className="parent-header">
             <h2>Nombre</h2>
             <h2>Apellido</h2>
-            <h2>Dirección</h2>
             <h2>Email</h2>
-            <h2>Teléfono</h2>
-            <h2>Cant. cargo</h2>
+            <h2>Tutor</h2>
             <h2>Acciones</h2>
           </div>
           {filteredList.map((item) => (
