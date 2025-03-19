@@ -14,7 +14,7 @@ export function PostParent() {
         event.preventDefault();
 
         try {
-            await axios.post("http://localhost:5000/parents/:id", {
+            await axios.post("http://localhost:5000/tutors/:id", {
                 name,
                 lastname,
                 address,

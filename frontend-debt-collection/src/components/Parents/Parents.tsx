@@ -16,17 +16,16 @@ export function Parents() {
     lastname: string;
     address: string;
     email: string;
-    celnumb: string;
-    childrenCount?: number;
+    phone: string;
     id_user: number;
   }
 
   const [list, setList] = useState<Parent[]>([]);
-  const [search, setSearch] = useState<string>(''); // Estado para almacenar el valor de búsqueda
+  const [search, setSearch] = useState<string>('');
 
   const getParents = async () => {
     await axios
-      .get('http://localhost:5000/parents')
+      .get('http://localhost:5000/tutors')
       .then((response) => {
         setList(response.data);
       })
@@ -41,12 +40,12 @@ export function Parents() {
 
   function DeletParent(id: number) {
     axios
-      .delete(`http://localhost:5000/parents/${id}`)
+      .delete(`http://localhost:5000/tutors/${id}`)
       .then(() => {
         setList((prevList) => prevList.filter((parent) => parent.idparent !== id));
       })
       .catch((error) => {
-        console.error("Error deleting parent:", error);
+        console.error("Error deleting tutor:", error);
       });
   }
 
@@ -103,8 +102,7 @@ export function Parents() {
               <p>{item.lastname}</p>
               <p>{item.address}</p>
               <p>{item.email}</p>
-              <p>{item.celnumb}</p>
-              <p>{item.childrenCount || '2'}</p>
+              <p>{item.phone}</p>
               <div className="parent-actions">
                 <button>
                   <FaChild />

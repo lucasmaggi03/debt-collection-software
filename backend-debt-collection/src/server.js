@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const db = require('./database');
 
-const parentsRoutes = require('./routes/parents-routes.js');
+const tutorsRoutes = require('./routes/tutors-routes.js');
 const childRoutes = require('./routes/child-routes.js');
 const feesRoutes = require('./routes/fee-routes.js');
 const feesHistoricalRoutes = require('./routes/feeHistorical-routes.js');
@@ -17,7 +17,7 @@ app.use(express.json());
 const port = 5000;
 
 // Routes
-app.use('/', parentsRoutes);
+app.use('/', tutorsRoutes);
 app.use('/', childRoutes);
 app.use('/', feesRoutes);
 app.use('/', feesHistoricalRoutes);
