@@ -26,14 +26,26 @@ router.get("/fees", async (req, res) => {
 });
 
 router.post("/fees/:id", async (req, res) => {
-  const {fee_on_time, fee_late} = req.body;
+  const {fee_on_time, fee_late, onesib, twosib} = req.body;
   const connection = await db.getConnection();
-  connection.query("INSERT INTO fee_schedule (fee_on_time, fee_late) VALUES (?, ?)", [fee_on_time, fee_late], (err, result) => {
+  connection.query("INSERT INTO fee_schedule (fee_on_time, fee_late, onesib, twosib) VALUES (?, ?, ?, ?)", [fee_on_time, fee_late, onesib, twosib], (err, result) => {
     if (err) {
       console.error("Error inserting fee:", err);
       return res.status(500).json({ error: err.message });
     } 
     return res.status(200).json({ message: "fee added successfully" });
+  });
+});
+
+router.get("/fee-schedule", async (req, res) => {
+  const connection = await db.getConnection();
+  
+  connection.query("SELECT * FROM fee_schedule ORDER BY datefee DESC LIMIT 1", (err, result) => {
+      if (err) {
+          console.error("Error fetching fee schedule:", err);
+          return res.status(500).json({ error: err.message });
+      }
+      return res.status(200).json(result[0]);
   });
 });
 

@@ -1,40 +1,41 @@
-.container-post{
+.container-fee {
     background-color: var(--borders);
-    border-radius: 5px;
     padding: 20px;
+    border-radius: 5px;
+}
+
+.fee-schedule {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+}
+
+.payment-actions {
+    display: flex;
     align-items: center;
+    gap: 10px; /* Espacio entre checkbox y botón */
+    margin-top: 10px;
 }
 
-.post-form{
+.payment-label {
     display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.form-group{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.form-group label{
-    color: var(--h1-color);
-}
-
-.form-group input{
+.btn-payment {
+    background-color: var(--second-accent);
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid var(--borders);
-    background-color: var(--first-accent);
-    color: white;
-    width: ;
+    color: var(--h1-color);
+    width: 20%;
+    margin-top: 10px;
 }
 
-.form-group button{
-    padding: 10px;
+.container-payment{
+    background-color: var(--borders);
+    padding: 20px;
     margin-top: 20px;
     border-radius: 5px;
-    background-color: var(--second-accent);
 }

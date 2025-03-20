@@ -1,44 +1,77 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import './FeeCalculate.css'
 
 export function FeeCalculate() {
-    const { idstudent } = useParams<{ idstudent: string }>(); // Obtener el ID del estudiante de la URL
-    const [fee, setFee] = useState<number>(1000); // Valor base de la cuota
+    const { idstudent } = useParams<{ idstudent: string }>();
+    const [feeOnTime, setFeeOnTime] = useState<number>(0);
+    const [feeLate, setFeeLate] = useState<number>(0);
     const [discount, setDiscount] = useState<number>(0);
-    const [finalFee, setFinalFee] = useState<number>(1000);
+    const [finalFee, setFinalFee] = useState<number>(0);
+    const [siblingsCount, setSiblingsCount] = useState<number>(0);
 
     useEffect(() => {
-        const fetchStudentData = async () => {
+        const fetchData = async () => {
             try {
-                const studentRes = await axios.get(`http://localhost:5000/students/${idstudent}`);
-                const { idtutor } = studentRes.data;
+                
+                const studentResponse = await axios.get(`http://localhost:5000/students/${idstudent}`);
+                const student = studentResponse.data;
 
-                if (idtutor) {
-                    const siblingsRes = await axios.get(`http://localhost:5000/students?tutor=${idtutor}`);
-                    const siblingsCount = siblingsRes.data.length;
+                
+                const siblingsResponse = await axios.get(`http://localhost:5000/students/siblings/${student.idtutor}`);
+                const siblingsCount = siblingsResponse.data.length - 1;
+                setSiblingsCount(siblingsCount < 0 ? 0 : siblingsCount);
 
-                    let discountRate = 0;
-                    if (siblingsCount === 2) discountRate = 0.10;
-                    if (siblingsCount >= 3) discountRate = 0.15;
+                
+                const feeResponse = await axios.get("http://localhost:5000/fee-schedule");
+                const { fee_on_time, fee_late, onesib, twosib } = feeResponse.data;
 
-                    setDiscount(discountRate);
-                    setFinalFee(fee * (1 - discountRate));
+                setFeeOnTime(fee_on_time);
+                setFeeLate(fee_late);
+
+                
+                let discountRate = 0;
+                if (siblingsCount === 1) {
+                    discountRate = onesib / 100; 
+                } else if (siblingsCount >= 2) {
+                    discountRate = twosib / 100;
                 }
+                setDiscount(discountRate);
+
+                const finalAmount = fee_on_time - fee_on_time * discountRate;
+                setFinalFee(finalAmount);
             } catch (error) {
-                console.error("Error fetching student data:", error);
+                console.error("Error fetching data:", error);
             }
         };
 
-        fetchStudentData();
-    }, [idstudent, fee]);
+        fetchData();
+    }, [idstudent]);
 
     return (
-        <div>
-            <h1>Cálculo de Cuota</h1>
-            <p>Valor base: ${fee}</p>
-            <p>Descuento aplicado: {discount * 100}%</p>
-            <p>Valor final a pagar: ${finalFee.toFixed(2)}</p>
+        <>
+        <div className="container-fee">
+            <div className="fee-schedule">
+                <h1>Cálculo de Cuota</h1>
+                <p>Cuota a tiempo: ${feeOnTime.toFixed(2)}</p>
+                <p>Cuota tardía: ${feeLate.toFixed(2)}</p>
+                <p>Hermanos: {siblingsCount}</p>
+                <p>Descuento aplicado: {discount * 100}%</p>
+                <p>Valor final a pagar: ${finalFee.toFixed(2)}</p>
+                
+                <div className="payment-actions">
+                    <label htmlFor="check-pay" className="payment-label">
+                        <input type="checkbox" id="check-pay" />
+                        <p>Confirmar pago</p>
+                    </label>
+                </div>
+                <button className="btn-payment">Generar pago</button>
+            </div>
         </div>
+        <div className="container-payment">
+            <h1>Listado de pagos históricos</h1>
+        </div>
+        </>
     );
 }

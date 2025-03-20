@@ -6,6 +6,8 @@ export function PostFee() {
     const [datefee, setDatefee] = useState("");
     const [fee_on_time, setFee_on_time] = useState("");
     const [porc, setPorc] = useState("");
+    const [onesib, setOneSib] = useState("");
+    const [twosib, setTwoSib] = useState("");
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -19,11 +21,15 @@ export function PostFee() {
                 datefee,
                 fee_on_time: feeOnTimeNum,
                 fee_late: feeLateNum,
+                onesib,
+                twosib,
             });
 
             setDatefee("");
             setFee_on_time("");
             setPorc("");
+            setOneSib("");
+            setTwoSib("");
         } catch (error) {
             console.error("Error al agregar cuota:", error);
         }
@@ -78,6 +84,28 @@ export function PostFee() {
                             disabled
                             value={feeLateCalculated}
                             readOnly
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="onesib">Descuento por un hermano</label>
+                        <input
+                            type="number"
+                            id="onesib"
+                            placeholder="Valor"
+                            value={onesib}
+                            onChange={(e) => setOneSib(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="twosib">Descuento por dos hermano</label>
+                        <input
+                            type="number"
+                            id="twosib"
+                            placeholder="Valor"
+                            value={twosib}
+                            onChange={(e) => setTwoSib(e.target.value)}
+                            required
                         />
                     </div>
                     <div className="form-group">

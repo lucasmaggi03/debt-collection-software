@@ -22,7 +22,7 @@ export function PostStudent() {
                 phone,
                 address,
                 status,
-                idtutor: idtutor === null || idtutor === "" ? null : idtutor,
+                idtutor: idtutor ?? null,
             });
             setName("");
             setLastname("");
@@ -99,7 +99,7 @@ export function PostStudent() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="dni">Certificado Físico</label>
+                        <label htmlFor="cf">Certificado Físico</label>
                         <input
                             type="checkbox"
                             id="cf"

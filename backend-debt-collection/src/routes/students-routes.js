@@ -53,4 +53,22 @@ router.delete("/students/:id", async (req, res) => {
   }
 });
 
+router.get("/students/siblings/:idtutor", async (req, res) => {
+  const { idtutor } = req.params;
+  const connection = await db.getConnection();
+
+  connection.query(
+      "SELECT * FROM student WHERE idtutor = ?", 
+      [idtutor], 
+      (err, result) => {
+          if (err) {
+              console.error("Error fetching siblings:", err);
+              return res.status(500).json({ error: err.message });
+          }
+          return res.status(200).json(result);
+      }
+  );
+});
+
+
 module.exports = router;
