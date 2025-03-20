@@ -1,116 +1,44 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
-import "./FeeCalculate.css";
+import { useParams } from "react-router-dom";
 
 export function FeeCalculate() {
-    const [name, setName] = useState("");
-    const [lastname, setLastname] = useState("");
-    const [address, setAddress] = useState("");
-    const [email, setEmail] = useState("");
-    const [celnumb, setCelnumb] = useState("");
-    const [dni, setDni] = useState("");
+    const { idstudent } = useParams<{ idstudent: string }>(); // Obtener el ID del estudiante de la URL
+    const [fee, setFee] = useState<number>(1000); // Valor base de la cuota
+    const [discount, setDiscount] = useState<number>(0);
+    const [finalFee, setFinalFee] = useState<number>(1000);
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
+    useEffect(() => {
+        const fetchStudentData = async () => {
+            try {
+                const studentRes = await axios.get(`http://localhost:5000/students/${idstudent}`);
+                const { idtutor } = studentRes.data;
 
-        try {
-            await axios.post("http://localhost:5000/tutors/:id", {
-                name,
-                lastname,
-                address,
-                email,
-                celnumb,
-                dni,
-            });
-            setName("");
-            setLastname("");
-            setAddress("");
-            setEmail("");
-            setCelnumb("");
-            setDni("");
-        } catch (error) {
-            console.error("Error al agregar padre:", error);
-        }
-    };
+                if (idtutor) {
+                    const siblingsRes = await axios.get(`http://localhost:5000/students?tutor=${idtutor}`);
+                    const siblingsCount = siblingsRes.data.length;
+
+                    let discountRate = 0;
+                    if (siblingsCount === 2) discountRate = 0.10;
+                    if (siblingsCount >= 3) discountRate = 0.15;
+
+                    setDiscount(discountRate);
+                    setFinalFee(fee * (1 - discountRate));
+                }
+            } catch (error) {
+                console.error("Error fetching student data:", error);
+            }
+        };
+
+        fetchStudentData();
+    }, [idstudent, fee]);
 
     return (
-        <div className="container-post">
-            <div className="post-header">
-                <h1>Agregar tutor</h1>
-            </div>
-            <div className="post-form">
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="name">Nombre</label>
-                        <input
-                            type="text"
-                            id="name"
-                            placeholder="Nombre"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="lastname">Apellido</label>
-                        <input
-                            type="text"
-                            id="lastname"
-                            placeholder="Apellido"
-                            value={lastname}
-                            onChange={(e) => setLastname(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="address">Dirección</label>
-                        <input
-                            type="text"
-                            id="address"
-                            placeholder="Dirección"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="celnumb">Teléfono</label>
-                        <input
-                            type="tel"
-                            id="celnumb"
-                            placeholder="Teléfono"
-                            value={celnumb}
-                            onChange={(e) => setCelnumb(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="dni">DNI</label>
-                        <input
-                            type="number"
-                            id="dni"
-                            placeholder="DNI"
-                            value={dni}
-                            onChange={(e) => setDni(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <button type="submit">Agregar padre</button>
-                    </div>
-                </form>
-            </div>
+        <div>
+            <h1>Cálculo de Cuota</h1>
+            <p>Valor base: ${fee}</p>
+            <p>Descuento aplicado: {discount * 100}%</p>
+            <p>Valor final a pagar: ${finalFee.toFixed(2)}</p>
         </div>
     );
 }

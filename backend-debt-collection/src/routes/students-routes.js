@@ -14,27 +14,30 @@ router.get("/students", async (req, res) => {
   });
 });
 
-router.post("/child/:id", async (req, res) => {
-  const { name, lastname, address, celnumb, email, dni } = req.body;
+router.post("/students", async (req, res) => {
+  const { name, lastname, birth, phone, address, status, idtutor } = req.body;
   const connection = await db.getConnection();
-  connection.query("INSERT INTO parent (name, lastname, address, celnumb, email, dni) VALUES (?, ?, ?, ?, ? , ?)", [name, lastname, address, celnumb, email, dni], (err, result) => {
+  connection.query("INSERT INTO student (name, lastname, birth, phone, address, status, idtutor) VALUES (?, ?, ?, ?, ? , ?, ?)", [name, lastname, birth, phone, address, status, idtutor], (err, result) => {
     if (err) {
-      console.error("Error inserting parent:", err);
+      console.error("Error inserting Student:", err);
       return res.status(500).json({ error: err.message });
     } 
-    return res.status(200).json({ message: "Parent added successfully" });
+    return res.status(200).json({ message: "Student added successfully" });
   });
 });
 
-router.post("/child", async (req, res) => {
-  const { name, lastname, birth, status, idparentc } = req.body;
+router.get("/students/:id", async (req, res) => {
+  const idstudent = req.params.id; 
   const connection = await db.getConnection();
-  connection.query("INSERT INTO child (name, lastname, birth, status, idparentc) VALUES (?, ?, ?, ?, ? )", [name, lastname, birth, status, idparentc], (err, result) => {
+  connection.query("SELECT * FROM student WHERE idstudent = ?", [idstudent], (err, result) => {
     if (err) {
-      console.error("Error inserting parent:", err);
+      console.error("Error fetching student by id:", err);
       return res.status(500).json({ error: err.message });
-    } 
-    return res.status(200).json({ message: "Child added successfully" });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ error: "student not found" });
+    }
+    return res.status(200).json(result[0]);
   });
 });
 

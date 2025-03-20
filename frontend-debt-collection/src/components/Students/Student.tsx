@@ -102,7 +102,7 @@ export function Student() {
               <p>{item.name}</p>
               <p>{item.lastname}</p>
               <p>{item.status ? "Entregó CF" : "Adeuda CF"}</p>
-              <p>{item.idtutor ? idtutor : "No tiene tutor"}</p>
+              <p>{item.idtutor}</p>
               <div className="parent-actions">
                 <button className='act-btn'>
                   <MdModeEditOutline />

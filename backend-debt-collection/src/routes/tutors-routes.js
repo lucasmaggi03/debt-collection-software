@@ -55,6 +55,20 @@ router.delete("/tutors/:id", async (req, res) => {
   }
 });
 
-
+/*router.get('/students/:idstudent', async (req, res) => {
+  const { idstudent } = req.params;
+  const connection = await db.getConnection();
+  try {
+    const student = await connection.query('SELECT * FROM student WHERE idstudent = ?', [idstudent]);
+    if (student.length > 0) {
+      res.json(student[0]);
+    } else {
+      res.status(404).json({ error: 'Estudiante no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener el estudiante' });
+  }
+});*/
 
 module.exports = router;

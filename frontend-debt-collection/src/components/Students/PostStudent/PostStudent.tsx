@@ -6,30 +6,33 @@ export function PostStudent() {
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState("");
     const [address, setAddress] = useState("");
-    const [email, setEmail] = useState("");
-    const [celnumb, setCelnumb] = useState("");
-    const [dni, setDni] = useState("");
+    const [birth, setBirth] = useState("");
+    const [phone, setPhone] = useState("");
+    const [status, setStatus] = useState(0);
+    const [idtutor, setIdtutor] = useState<number | null>(null);
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         try {
-            await axios.post("http://localhost:5000/students/:id", {
+            await axios.post("http://localhost:5000/students", {
                 name,
                 lastname,
+                birth,
+                phone,
                 address,
-                email,
-                celnumb,
-                dni,
+                status,
+                idtutor: idtutor === null || idtutor === "" ? null : idtutor,
             });
             setName("");
             setLastname("");
+            setBirth("");
+            setPhone("");
             setAddress("");
-            setEmail("");
-            setCelnumb("");
-            setDni("");
+            setStatus(0);
+            setIdtutor(null);
         } catch (error) {
-            console.error("Error al agregar padre:", error);
+            console.error("Error al agregar alumno:", error);
         }
     };
 
@@ -63,6 +66,28 @@ export function PostStudent() {
                         />
                     </div>
                     <div className="form-group">
+                        <label htmlFor="birth">Fecha Nac.</label>
+                        <input
+                            type="date"
+                            id="birth"
+                            placeholder="Fecha Nacimiento"
+                            value={birth}
+                            onChange={(e) => setBirth(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="phone">Celular</label>
+                        <input
+                            type="number"
+                            id="phone"
+                            placeholder="Celular"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="address">Dirección</label>
                         <input
                             type="text"
@@ -74,36 +99,23 @@ export function PostStudent() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="dni">Certificado Físico</label>
                         <input
-                            type="email"
-                            id="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
+                            type="checkbox"
+                            id="cf"
+                            checked={status === 1}
+                            onChange={(e) => setStatus(e.target.checked ? 1 : 0)}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="celnumb">Teléfono</label>
-                        <input
-                            type="tel"
-                            id="celnumb"
-                            placeholder="Teléfono"
-                            value={celnumb}
-                            onChange={(e) => setCelnumb(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="dni">DNI</label>
+                        <label htmlFor="idtutor">Id Tutor</label>
                         <input
                             type="number"
-                            id="dni"
-                            placeholder="DNI"
-                            value={dni}
-                            onChange={(e) => setDni(e.target.value)}
-                            required
+                            id="idtutor"
+                            value={idtutor ?? ""}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                setIdtutor(value === "" ? null : Number(value));}}
                         />
                     </div>
                     <div className="form-group">
