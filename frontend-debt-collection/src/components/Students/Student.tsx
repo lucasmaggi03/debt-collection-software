@@ -6,23 +6,21 @@ import { Link } from 'react-router-dom';
 import { MdModeEditOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { IoReceipt } from "react-icons/io5";
-import { FaChild } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
 
 export function Student() {
-  interface Parent {
-    idparent: number;
+
+
+  interface Student {
+    idstudent: number;
     name: string;
     lastname: string;
-    address: string;
-    email: string;
-    celnumb: string;
-    childrenCount?: number;
-    id_user: number;
+    status: boolean;
+    idtutor: string;
   }
 
-  const [list, setList] = useState<Parent[]>([]);
-  const [search, setSearch] = useState<string>(''); // Estado para almacenar el valor de búsqueda
+  const [list, setList] = useState<Student[]>([]);
+  const [search, setSearch] = useState<string>('');
 
   const getStudent = async () => {
     await axios

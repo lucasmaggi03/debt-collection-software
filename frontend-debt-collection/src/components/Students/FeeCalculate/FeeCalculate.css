@@ -12,7 +12,7 @@
 .payment-actions {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espacio entre checkbox y botón */
+    gap: 10px;
     margin-top: 10px;
 }
 
