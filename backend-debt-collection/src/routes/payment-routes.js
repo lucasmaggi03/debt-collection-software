@@ -2,7 +2,7 @@ const db = require("../database");
 const express = require('express');
 const router = express.Router();
 
-router.post("/payment", async (req, res) => {
+router.post("/payments", async (req, res) => {
     const { payment_date, final_fee, idstudent } = req.body;
     const connection = await db.getConnection();
     connection.query(
@@ -33,5 +33,22 @@ router.get("/payments/:idstudent", async (req, res) => {
         }
     );
 });
+
+router.get("/payments", async (req, res) => {
+    const { idstudent } = req.params;
+    const connection = await db.getConnection();
+    connection.query(
+        "SELECT * FROM payment",
+        [idstudent],
+        (err, result) => {
+            if (err) {
+                console.error("Error fetching payments:", err);
+                return res.status(500).json({ error: err.message });
+            }
+            return res.status(200).json(result);
+        }
+    );
+});
+
 
 module.exports = router;

@@ -74,7 +74,7 @@ export function FeeCalculate() {
                 idstudent: idstudent,
             });
             alert("Pago generado exitosamente");
-            getPayments(); // Recargar la lista de pagos después de agregar uno nuevo
+            getPayments();
         } catch (error) {
             console.error("Error al agregar payment: ", error);
             alert("Error al generar el pago");
