@@ -49,6 +49,8 @@ cd backend
 npm install
 ```
 
+![DB](./spr-img/db.PNG)
+
 #### Frontend
 
 ```bash
